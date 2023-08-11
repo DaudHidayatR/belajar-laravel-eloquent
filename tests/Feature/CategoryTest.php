@@ -22,4 +22,17 @@ class CategoryTest extends TestCase
         $result = $category->save();
         self::assertTrue($result);
     }
+    public function testInsertMany(){
+        $category = [];
+        for ($i = 0; $i < 10; $i++) {
+            $category[] = [
+                'id' => $i,
+                'name' => 'GADGET' . $i,
+            ];
+        }
+        $result = Category::insert($category);
+        self::assertTrue($result);
+        $total = Category::count();
+        self::assertEquals(10, $total);
+    }
 }
