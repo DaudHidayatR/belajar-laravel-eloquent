@@ -7,6 +7,7 @@ use Database\Seeders\CategorySeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertEquals;
 
 class CategoryTest extends TestCase
 {
@@ -51,5 +52,21 @@ class CategoryTest extends TestCase
         $category->name = 'Food update';
         $result = $category->save();
         self::assertTrue($result);
+    }
+    public function testSelect(){
+        for ($i = 0; $i < 10; $i++) {
+            $category = new Category();
+            $category->id = $i;
+            $category->name = 'GADGET' . $i;
+            $category->save();
+        }
+        $categories = Category::whereNull('description')->get();
+        assertEquals(10, $categories->count());
+        $categories->each(function ($item) {
+            self::assertNull($item->description);
+            $item->description = 'update';
+            $item->save();
+        });
+
     }
 }
