@@ -106,4 +106,5 @@ class CategoryTest extends TestCase
         Category::whereNull('description')->delete();
         self::assertEquals(0, Category::count());
     }
+
 }
