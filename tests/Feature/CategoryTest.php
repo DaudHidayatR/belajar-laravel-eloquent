@@ -69,4 +69,18 @@ class CategoryTest extends TestCase
         });
 
     }
+    public function testUpdateMany(){
+        $category = [];
+        for ($i = 0; $i < 10; $i++) {
+            $category[] = [
+                'id' => $i,
+                'name' => 'GADGET' . $i,
+            ];
+        }
+        $result = Category::insert($category);
+        self::assertTrue($result);
+        Category::whereNull('description')->update(['description' => 'update']);
+        $total = Category::where('description', 'update')->count();
+        assertEquals(10, $total);
+    }
 }
