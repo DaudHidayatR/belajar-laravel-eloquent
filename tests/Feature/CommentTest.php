@@ -21,4 +21,12 @@ class CommentTest extends TestCase
         $comment->save();
         self::assertNotNull($comment->id, 'Comment id should not be null');
     }
+    public function testCommentDefaultAttribute()
+    {
+        $comment = new Comment();
+        $comment->email = 'daud28ramadhan@gmail.com';
+        $comment->save();
+        self::assertEquals('sample comment', $comment->comment );
+        self::assertEquals('sample title', $comment->title );
+    }
 }
