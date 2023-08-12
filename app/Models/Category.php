@@ -17,4 +17,9 @@ class Category extends Model
         'name',
         'description',
     ];
+    protected static function booted()
+    {
+        parent::booted();
+        static::addGlobalScope(new Scopes\IsActiveScope);
+    }
 }
