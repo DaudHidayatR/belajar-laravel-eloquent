@@ -29,4 +29,5 @@ class CommentTest extends TestCase
         self::assertEquals('sample comment', $comment->comment );
         self::assertEquals('sample title', $comment->title );
     }
+
 }
