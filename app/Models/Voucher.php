@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Voucher extends Model
 {
@@ -22,4 +23,13 @@ class Voucher extends Model
             'voucher_code'
         ];
     }
+    public function scopeActive(Builder $query):void
+    {
+        $query->where('is_active', true);
+    }
+    public function scopeNonActive(Builder $query):void
+    {
+        $query->where('is_active', false);
+    }
+
 }
