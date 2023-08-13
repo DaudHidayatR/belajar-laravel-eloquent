@@ -20,5 +20,13 @@ class ProductSeeder extends Seeder
         $product->category_id = 'FOOD';
         $product->description = 'bakso enak';
         $product->save();
+
+        $product = new Product();
+        $product->id = '2';
+        $product->name = 'Mie Ayam';
+        $product->price = 12000;
+        $product->category_id = 'FOOD';
+        $product->description = 'Mie Ayam enak';
+        $product->save();
     }
 }
