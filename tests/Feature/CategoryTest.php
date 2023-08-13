@@ -32,6 +32,7 @@ class CategoryTest extends TestCase
             $category[] = [
                 'id' => $i,
                 'name' => 'GADGET' . $i,
+                'is_active' => true
             ];
         }
         $result = Category::insert($category);
@@ -60,6 +61,7 @@ class CategoryTest extends TestCase
             $category = new Category();
             $category->id = $i;
             $category->name = 'GADGET' . $i;
+            $category->is_active = true;
             $category->save();
         }
         $categories = Category::whereNull('description')->get();
@@ -77,6 +79,7 @@ class CategoryTest extends TestCase
             $category[] = [
                 'id' => $i,
                 'name' => 'GADGET' . $i,
+                'is_active' => true,
             ];
         }
         $result = Category::insert($category);
@@ -99,6 +102,7 @@ class CategoryTest extends TestCase
             $category[] = [
                 'id' => $i,
                 'name' => 'GADGET' . $i,
+                'is_active' => true,
             ];
         }
         $result = Category::insert($category);
