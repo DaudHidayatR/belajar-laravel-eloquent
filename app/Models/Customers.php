@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Support\Facades\Date;
 
 class Customers extends Model
 {
@@ -32,6 +35,13 @@ class Customers extends Model
     }
     public function likes(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'customer_like_products', 'customer_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'customer_like_products', 'customer_id', 'product_id')->withPivot('created_at');
     }
+    public function likeslast(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'customer_like_products', 'customer_id', 'product_id')->withPivot('created_at')
+//            ->wherePivot('created_at', '>=', Date::now()->subDay(-7));
+            ->wherePivot('created_at', '>=', Carbon::now()->subDay(-7));
+    }
+
 }
