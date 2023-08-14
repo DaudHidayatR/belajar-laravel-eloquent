@@ -2,8 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\Wallets;
+use Database\Seeders\CategorySeeder;
 use Database\Seeders\CustomersSeeder;
+use Database\Seeders\ProductSeeder;
 use Database\Seeders\VirtualAccountSeeder;
 use Database\Seeders\WalletsSeeder;
 use App\Models\Customers;
@@ -59,6 +63,29 @@ class CustomerTest extends TestCase
         $this->assertEquals('1234567890', $virtualAccount->va_number);
 
     }
+    public function testManyToMany()
+    {
+        $this->seed([CustomersSeeder::class, CategorySeeder::class, ProductSeeder::class]);
+        $customer = Customers::find('Daud');
+        self::assertNotNull($customer);
 
+        $customer->likes()->attach('1');
+
+        $product = $customer->likes;
+        self::assertNotNull($product);
+        self::assertCount(1, $product);
+        self::assertEquals('1', $product[0]->id);
+
+
+
+    }
+    public function testManyToManyDetach()
+    {
+        $this->testManyToMany();
+        $customer = Customers::find('Daud');
+        $customer->likes()->detach('1');
+        $product = $customer->likes;
+        self::assertNotNull($product);
+    }
 
 }
