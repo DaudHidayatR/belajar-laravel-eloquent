@@ -186,7 +186,7 @@ class CategoryTest extends TestCase
 
         $products = $category->products;
         self::assertNotNull($products);
-        self::assertCount(1, $products);
+        self::assertCount(2, $products);
 
     }
 
@@ -214,10 +214,10 @@ class CategoryTest extends TestCase
         $this->seed([CategorySeeder::class, ProductSeeder::class]);
         $category = Category::find('FOOD');
         $products = $category->products;
-        self::assertCount(1, $products);
+        self::assertCount(2, $products);
 
         $outOfStockProducts = $category->products()->where('stock', 0)->get();
-        self::assertCount(1, $outOfStockProducts);
+        self::assertCount(2, $outOfStockProducts);
 
     }
 

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Wallets;
 use Database\Seeders\CustomersSeeder;
+use Database\Seeders\VirtualAccountSeeder;
 use Database\Seeders\WalletsSeeder;
 use App\Models\Customers;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -46,5 +47,18 @@ class CustomerTest extends TestCase
 
 
     }
+
+    public function testGasOneThrough()
+    {
+        $this->seed([CustomersSeeder::class, WalletsSeeder::class, VirtualAccountSeeder::class]);
+        $customer = Customers::find('Daud');
+        $this->assertNotNull($customer);
+
+        $virtualAccount = $customer->virtualAccount;
+        $this->assertNotNull($virtualAccount);
+        $this->assertEquals('1234567890', $virtualAccount->va_number);
+
+    }
+
 
 }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wallets', function (Blueprint $table) {
-            $table->id()->autoIncrement();
+            $table->integerIncrements('id');
             $table->string('customer_id')->nullable(false);
             $table->bigInteger('amount')->nullable(false)->default(0);
             $table->foreign('customer_id')->on('customers')->references('id');
