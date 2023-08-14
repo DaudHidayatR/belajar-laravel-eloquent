@@ -26,6 +26,6 @@ class Product extends Model
     }
     public function likes(): BelongsToMany
     {
-        return $this->belongsToMany(Customers::class, 'customer_like_products', 'product_id', 'customer_id')->withPivot('created_at');
+        return $this->belongsToMany(Customers::class, 'customer_like_products', 'product_id', 'customer_id')->withPivot('created_at')->using(Like::class);
     }
 }

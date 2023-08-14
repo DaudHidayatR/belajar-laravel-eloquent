@@ -35,11 +35,11 @@ class Customers extends Model
     }
     public function likes(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'customer_like_products', 'customer_id', 'product_id')->withPivot('created_at');
+        return $this->belongsToMany(Product::class, 'customer_like_products', 'customer_id', 'product_id')->withPivot('created_at')->using(Like::class);
     }
     public function likeslast(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'customer_like_products', 'customer_id', 'product_id')->withPivot('created_at')
+        return $this->belongsToMany(Product::class, 'customer_like_products', 'customer_id', 'product_id')->withPivot('created_at')->using(Like::class)
 //            ->wherePivot('created_at', '>=', Date::now()->subDay(-7));
             ->wherePivot('created_at', '>=', Carbon::now()->subDay(-7));
     }
