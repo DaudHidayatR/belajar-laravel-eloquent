@@ -77,4 +77,19 @@ class ProductTest extends TestCase
         }
     }
 
+    public function testOneOfManyPolymorphic()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class,VoucherSeeder::class, CommentSeeder::class]);
+
+        $product = Product::find("1");
+        self::assertNotNull($product);
+
+        $comment = $product->lastestComment;
+        self::assertNotNull($comment);
+
+        $comment = $product->OldComments;
+        self::assertNotNull($comment);
+    }
+
+
 }
