@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Wallets;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\CustomersSeeder;
+use Database\Seeders\ImageSeeder;
 use Database\Seeders\ProductSeeder;
 use Database\Seeders\VirtualAccountSeeder;
 use Database\Seeders\WalletsSeeder;
@@ -134,6 +135,17 @@ class CustomerTest extends TestCase
             self::assertNotNull($pivot->product);
 
         }
+    }
+
+    public function testOneToOnePolymorphic()
+    {
+        $this->seed([CustomersSeeder::class, ImageSeeder::class]);
+        $customer = Customers::find('Daud');
+        self::assertNotNull($customer);
+
+        $image = $customer->images;
+        self::assertNotNull($image);
+        self::assertEquals('https://www.udacity.com/blog/wp-content/uploads/2020/11/Hello-World_Blog-scaled.jpeg', $image->url);
     }
 
 
