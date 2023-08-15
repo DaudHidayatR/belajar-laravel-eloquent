@@ -15,5 +15,11 @@ class Comment extends Model
     protected $attributes = [
         'title' => 'sample title',
         'comment' => 'sample comment',
+        'commentable_id' => 1,
+        'commentable_type' => Product::class ,
     ];
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
 }
