@@ -148,5 +148,18 @@ class CustomerTest extends TestCase
         self::assertEquals('https://www.udacity.com/blog/wp-content/uploads/2020/11/Hello-World_Blog-scaled.jpeg', $image->url);
     }
 
+    public function testEager()
+    {
+        $this->seed([CustomersSeeder::class, WalletsSeeder::class,ImageSeeder::class]);
+
+        $customer = Customers::with('wallet','images')->find('Daud');
+        self::assertNotNull($customer);
+
+        $customer = Customers::find('Daud');
+        self::assertNotNull($customer);
+
+
+    }
+
 
 }

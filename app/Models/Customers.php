@@ -21,6 +21,7 @@ class Customers extends Model
     protected  $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
+    public $with = ['wallet'];
 
     public function wallet()
     {
