@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Customers;
+use App\Models\Product;
+use App\Models\Voucher;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
@@ -28,5 +32,10 @@ class AppServiceProvider extends ServiceProvider
                 $query->bindings,
             );
         });
+        Relation::enforceMorphMap([
+            'product' => Product::class,
+            'voucher' => Voucher::class,
+            'customer' => Customers::class,
+        ]);
     }
 }
