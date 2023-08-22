@@ -16,6 +16,7 @@ use Database\Seeders\TagSeeder;
 use Database\Seeders\VoucherSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
@@ -121,6 +122,28 @@ class ProductTest extends TestCase
         $products = $products->toQuery()->where('price', 15000)->get();
         self::assertCount(1, $products);
         self::assertEquals('1', $products[0]->id);
+
+    }
+
+    public function testSerialization()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class]);
+        $product = Product::query()->get();
+        self::assertCount(2, $product);
+
+        $json = $product->toJson(JSON_PRETTY_PRINT);
+        Log::info($json);
+
+    }
+    public function testSerializationRelation()
+    {
+        $this->seed([CategorySeeder::class, ProductSeeder::class, ImageSeeder::class]);
+        $product = Product::query()->get();
+        $product->load(['category', 'images']);
+        self::assertCount(2, $product);
+
+        $json = $product->toJson(JSON_PRETTY_PRINT);
+        Log::info($json);
 
     }
 
