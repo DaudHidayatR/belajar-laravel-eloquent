@@ -252,5 +252,4 @@ class CategoryTest extends TestCase
         self::assertEquals(1, $products);
     }
 
-
 }
